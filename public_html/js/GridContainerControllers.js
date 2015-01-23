@@ -6,37 +6,35 @@
 angular.module("gridContainer.tsiotsias.uk")
     .controller("GridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
         function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
-            var httpDataPromise = getHTTPDataService.getData("Products.json");
+            var httpDataPromise = getHTTPDataService.getData("ProductSummary.json");
+            // Now wait until the promise is fulfilled
             httpDataPromise.then(function(result) {  // this is only run after $http completes
-            httpData = result;
-            initialiseGrid();
+            var httpData = result;
+            initialiseGrid(httpData);
         });
-        function initialiseGrid(){
-            console.log("Initialising grid");
+        function initialiseGrid(gridData){
             var gridElement = $element[0];
+            var gridContainerElement = $(gridElement).parent()[0];
+            var gridContainerHeight = $(gridElement).parent().height();
             $(gridElement).kendoGrid({
-                columns: [{
-                    field: "FirstName",
-                    title: "First Name"
-                },
-                {
-                    field: "LastName",
-                    title: "Last Name"
-                }],
                 dataSource: {
-                    data: [{
-                        FirstName: "Joe",
-                        LastName: "Smith"
-                    },
-                    {
-                        FirstName: "Jane",
-                        LastName: "Smith"
-                    }]
+                    data: gridData,
+                    pageSize: 15
                 },
                 groupable: true,
                 scrollable: true,
                 sortable: true,
-                pageable: true
+                pageable: { refresh: true, pageSizes: [5, 10, 15, 20]  },
+                resizable: true,
+                filterable: true,
+                editable: true,
+                height: gridContainerHeight
+            });
+            // put a listener onto the grid container element
+            console.log("Grid Container Element is : "+gridContainerElement.id);
+            console.log("Grid Container Element height is : "+gridContainerElement.clientHeight);
+            window.addEventListener("resize", function () {
+                alert("Window was resized to height : "+window.innerHeight);
             });
         }
     
