@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 angular.module("gridContainer.tsiotsias.uk")
-    .factory('getHTTPDataService', function($http, URL) {
-        var getData = function() {
+    .factory('getHTTPDataService', function($http) {
+        var getData = function(URL) {
             console.log("URL to extract data from : "+URL);
             return $http({method:"GET", url:URL}).then(function(result){
                 return result.data;
