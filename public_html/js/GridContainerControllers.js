@@ -30,13 +30,49 @@ angular.module("gridContainer.tsiotsias.uk")
                 editable: true,
                 height: gridContainerHeight
             });
-            // put a listener onto the grid container element
+            var grid = $(gridElement).data("kendoGrid");
+            // deal with pager change events
+            var gridPager = grid.pager;
+            gridPager.bind("change", pager_change);
+            // deal with data source change events
+            var gridDataSource = grid.dataSource;
+            gridDataSource.bind("change", dataSource_change);
+            //
+            var dataArea = $(gridElement).find(".k-grid-content");
+            var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
+            console.log("<-- Initialisation --->");
             console.log("Grid Container Element is : "+gridContainerElement.id);
             console.log("Grid Container Element height is : "+gridContainerElement.clientHeight);
-            window.addEventListener("resize", function () {
-                alert("Window was resized to height : "+window.innerHeight);
-            });
+            console.log("Grid decorations height is : "+gridDecorationsHeight);
+            console.log(">---End Initialisation ---<");
+            // put a listener onto the grid container element
+            window.addEventListener("resize", resizeGridToFitContainer);
+            //
+            // Function to resize the grid to keep it within the bounds of the grid container
+            function resizeGridToFitContainer () {
+                //alert("Window was resized to height : "+window.innerHeight);
+                console.log("<-- Resize --->");
+                console.log("Grid container element height is : "+gridContainerElement.clientHeight);
+                console.log("Grid Data Area OLD height is : "+dataArea.height());
+                dataArea.height(gridContainerElement.clientHeight-gridDecorationsHeight);
+                console.log("Grid Data Area NEW height is : "+dataArea.height());
+                console.log(">---End Resize ---<");
+            }
+            //
+            // manage the change in page .... and the resize issue .....
+            function pager_change() {
+                console.log("pager change event");
+                //resizeGridToFitContainer();
+            }
+            //
+            // manage the change in data being displayed
+            function dataSource_change() {
+                console.log("dataSource change event");
+                resizeGridToFitContainer();
+            }
         }
-    
+        
+        
+        
         }]);
 
