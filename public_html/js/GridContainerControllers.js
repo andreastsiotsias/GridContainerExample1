@@ -22,8 +22,50 @@ angular.module("gridContainer.tsiotsias.uk")
                     pageSize: 15
                 },
                 toolbar: [
-                    "create", "cancel", "save", "destroy"
+                    "create", "cancel", "save"
                 ],
+                columns: [{
+                    command: 
+                        {
+                            text: "Select Row"
+                        },
+                        title: " ",
+                        width: 120
+                    },
+                {
+                        field: "Part_Number",
+                    title: "Item Number",
+                    width: 120
+                }, 
+                {
+                    field: "Part_Name",
+                    title: "Item Name",
+                    filterable: false
+                }, 
+                {
+                    field: "Revision",
+                    title: "Version",
+                    width: 80,
+                    filterable: true
+                },  
+                {
+                    field: "Phase",
+                    title: "Status",
+                    width: 130,
+                    filterable: true
+                },
+                {
+                    field: "Description",
+                    title: "Item Notes",
+                    filterable: false
+                },
+                {
+                    command: 
+                        {
+                            text: "View Details"
+                        },
+                        title: " "
+                }],
                 groupable: true,
                 scrollable: true,
                 sortable: true,
