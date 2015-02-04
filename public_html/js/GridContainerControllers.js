@@ -21,10 +21,13 @@ angular.module("gridContainer.tsiotsias.uk")
                     data: gridData,
                     pageSize: 15
                 },
+                toolbar: [
+                    "create", "cancel", "save", "destroy"
+                ],
                 groupable: true,
                 scrollable: true,
                 sortable: true,
-                pageable: { refresh: true, pageSizes: [5, 10, 15, 20]  },
+                pageable: { refresh: true, pageSizes: [5, 10, 15, 20], input: true  },
                 resizable: true,
                 filterable: true,
                 editable: true,
