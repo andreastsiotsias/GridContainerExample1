@@ -29,7 +29,8 @@ angular.module("gridContainer.tsiotsias.uk")
                 toolbar: [
                     "create", "cancel", "save"
                 ],
-                columns: [{
+                columns: [
+                {
                     field: "Part_Number",
                     title: "Item Number",
                     width: 120
@@ -56,20 +57,33 @@ angular.module("gridContainer.tsiotsias.uk")
                     title: "Item Notes",
                     filterable: false
                 },
-                {
-                    command: 
-                        {
-                            text: "View Details"
-                        },
-                        title: " "
+                {   
+                    command: [{
+                        name: "edit",
+                        text: { 
+                            edit: "Edit",               // This is the localization for Edit button
+                            update: "Save",             // This is the localization for Update button
+                            cancel: "Cancel changes"    // This is the localization for Cancel button
+                        }
+                    },
+                    { 
+                        name: "destroy", 
+                        text: "Delete Office"           // This is the localization for Delete button
+                    }
+                ],
+                    title: "&nbsp;",
+                    width: "300px"
                 }],
-                groupable: true,
+                batch: false,
+                columnMenu: true,
+                selectable: "multiple, row",
+                groupable: false,
                 scrollable: true,
                 sortable: true,
                 pageable: pageAble,
                 resizable: true,
                 filterable: true,
-                editable: true,
+                editable: "popup",
                 height: gridContainerHeight
             });
             var grid = $(gridElement).data("kendoGrid");
@@ -81,6 +95,8 @@ angular.module("gridContainer.tsiotsias.uk")
             gridDataSource.bind("change", dataSource_change);
             // deal with saveChanges events
             grid.bind("saveChanges", grid_saveChanges);
+            // deal with edit events
+            grid.bind("edit", grid_edit);
             var dataArea = $(gridElement).find(".k-grid-content");
             var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
             console.log("<-- Initialisation --->");
@@ -123,6 +139,10 @@ angular.module("gridContainer.tsiotsias.uk")
                 else {
                     alert("Changes Saved !");
                 }
+            }
+            //
+            // manage the edit event on a row
+            function grid_edit(e) {
             }
         }  
     }]);
