@@ -7,15 +7,20 @@ angular.module("gridContainer.tsiotsias.uk")
     .controller("GridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
         function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
             var httpDataPromise = getHTTPDataService.getData("ProductSummary.json");
+            // show the spinning wheel ....
+            $('#loading').show();
             // Now wait until the promise is fulfilled
             httpDataPromise.then(function(result) {  // this is only run after $http completes
             var httpData = result;
             initialiseGrid(httpData);
+            // hide the spinning wheel ....
+            $('#loading').hide();
         });
         function initialiseGrid(gridData){
             var gridElement = $element[0];
             var gridContainerElement = $(gridElement).parent()[0];
             var gridContainerHeight = $(gridElement).parent().height();
+            var pageAble = { refresh: true, pageSizes: [5, 10, 15, 20, 25], input: false  };
             $(gridElement).kendoGrid({
                 dataSource: {
                     data: gridData,
@@ -25,15 +30,7 @@ angular.module("gridContainer.tsiotsias.uk")
                     "create", "cancel", "save"
                 ],
                 columns: [{
-                    command: 
-                        {
-                            text: "Select Row"
-                        },
-                        title: " ",
-                        width: 120
-                    },
-                {
-                        field: "Part_Number",
+                    field: "Part_Number",
                     title: "Item Number",
                     width: 120
                 }, 
@@ -69,7 +66,7 @@ angular.module("gridContainer.tsiotsias.uk")
                 groupable: true,
                 scrollable: true,
                 sortable: true,
-                pageable: { refresh: true, pageSizes: [5, 10, 15, 20], input: true  },
+                pageable: pageAble,
                 resizable: true,
                 filterable: true,
                 editable: true,
@@ -82,7 +79,8 @@ angular.module("gridContainer.tsiotsias.uk")
             // deal with data source change events
             var gridDataSource = grid.dataSource;
             gridDataSource.bind("change", dataSource_change);
-            //
+            // deal with saveChanges events
+            grid.bind("saveChanges", grid_saveChanges);
             var dataArea = $(gridElement).find(".k-grid-content");
             var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
             console.log("<-- Initialisation --->");
@@ -115,9 +113,17 @@ angular.module("gridContainer.tsiotsias.uk")
                 console.log("dataSource change event");
                 resizeGridToFitContainer();
             }
-        }
-        
-        
-        
-        }]);
+            //
+            // manage the saveChanges event
+            function grid_saveChanges(e) {
+                if (!confirm("Are you sure you want to save all changes?")) {
+                    e.preventDefault();
+                    alert("Changes Discarded !");
+                }
+                else {
+                    alert("Changes Saved !");
+                }
+            }
+        }  
+    }]);
 
