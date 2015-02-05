@@ -74,6 +74,7 @@ angular.module("gridContainer.tsiotsias.uk")
                     title: "&nbsp;",
                     width: "300px"
                 }],
+                autoBind: true,
                 batch: false,
                 columnMenu: true,
                 selectable: "multiple, row",
@@ -83,7 +84,9 @@ angular.module("gridContainer.tsiotsias.uk")
                 pageable: pageAble,
                 resizable: true,
                 filterable: true,
-                editable: "popup",
+                editable: {
+                    mode: "popup"
+                },
                 height: gridContainerHeight
             });
             var grid = $(gridElement).data("kendoGrid");
@@ -97,6 +100,8 @@ angular.module("gridContainer.tsiotsias.uk")
             grid.bind("saveChanges", grid_saveChanges);
             // deal with edit events
             grid.bind("edit", grid_edit);
+            // deal with dataBinding events
+            grid.bind("dataBind", grid_dataBind);
             var dataArea = $(gridElement).find(".k-grid-content");
             var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
             console.log("<-- Initialisation --->");
@@ -143,6 +148,12 @@ angular.module("gridContainer.tsiotsias.uk")
             //
             // manage the edit event on a row
             function grid_edit(e) {
+                alert("Grid Edit");
+            }
+            //
+            // manage the databinding event on a row
+            function grid_dataBind (e) {
+                alert("Grid Data Bind");
             }
         }  
     }]);
