@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module("gridContainer.tsiotsias.uk")
+angular.module("declarativeGridContainer.tsiotsias.uk")
     .factory('getHTTPDataService', function($http) {
         var getData = function(URL) {
             return $http({method:"GET", url:URL}).then(function(result){
