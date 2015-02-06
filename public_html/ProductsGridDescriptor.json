@@ -72,7 +72,7 @@
         }      
     },
     "editable":
-        {"mode": "inline"},
+        {"mode": "popup"},
     "filterable": true,
     "groupable": false,
     "height": 300,
