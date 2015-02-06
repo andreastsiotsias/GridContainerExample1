@@ -8,7 +8,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
         function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
             console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
-            $('#loading').show();
+            //$('#loading').show();
             //
             var httpDataPromise = getHTTPDataService.getData($attrs.descriptor);
             // Now wait until the promise is fulfilled
@@ -16,7 +16,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var httpData = result;
             initialiseGrid(httpData);
             // hide the spinning wheel ....
-            $('#loading').hide();
+            //$('#loading').hide();
             //
         });
         function initialiseGrid(gridDescriptor){
@@ -25,16 +25,26 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // now bypass the Height attribute passed in via the definition
             var gridContainerHeight = $(gridElement).parent().height();
             gridDescriptor.height = gridContainerHeight;
+            // build the grid based on the descriptor file which was HTTP'd in
             $(gridElement).kendoGrid(gridDescriptor);
+            // store the grid in a variable
             var grid = $(gridElement).data("kendoGrid");
-            // deal with pager change events
+            // store a few more variables which will com in handy later
             var gridPager = grid.pager;
+            var gridDataSource = grid.dataSource;
+            var selectedRow;
+            var selectedRowModel;
+            var selectedRowData;
+            //
+            // Now start dealing with events ..... there are several of them
+            // deal with pager change events
             gridPager.bind("change", pager_change);
             // deal with data source change events
-            var gridDataSource = grid.dataSource;
             gridDataSource.bind("change", dataSource_change);
             // deal with grid save events
             grid.bind("save", grid_save);
+            // deal with grid row selection events
+            grid.bind("change", grid_selection);
             //
             var dataArea = $(gridElement).find(".k-grid-content");
             var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
@@ -78,7 +88,15 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             function grid_save(evt) {
                 console.log("row save event");
                 //evt.preventDefault();
-                //resizeGridToFitContainer();
+            }
+            //
+            // manage the selection of a row in the grid
+            function grid_selection(evt) {
+                selectedRow = this.select();
+                selectedRowModel = grid.dataItem(this.select());
+                selectedRowData = JSON.stringify(selectedRowModel.toJSON());
+                //console.log("Selected row : "+JSON.stringify(grid.dataItem(this.select()).toJSON()));
+                console.log("Selected row with Data : "+selectedRowData);
             }
         }  
     }]);

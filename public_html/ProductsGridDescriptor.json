@@ -14,34 +14,65 @@
         }
     ],
     "dataSource" : {
-        "batch": true,
+        "batch": false,
         "pageSize": 15,
         "schema": {
             "model": {
-                "id": "uid"
+                "id": "uid",            
+                "fields": {
+                    "Part_Number": {
+                        "type": "String",
+                        "editable": true,
+                        "nullable": false,
+                        "validation": {"required": true}
+                   },
+                    "Part_Name": {
+                        "type": "String",
+                        "editable": true,
+                        "nullable": true
+                   },
+                    "Revision": {
+                        "type": "String",
+                        "editable": true,
+                        "nullable": false,
+                        "defaultValue": "A",
+                        "validation": {"required": true}
+                    },
+                    "Phase": {
+                        "type": "String",
+                        "editable": true,
+                        "nullable": false,
+                        "defaultValue": "Unreleased",
+                        "validation": {"required": true}
+                    }
+                }
             }
         },
         "transport": {
             "read": {
                 "url": "./ProductSummary.json",
+                "type": "GET",
                 "dataType": "json"
             },
             "create": {
                 "url": "./ProductsSampleCreate.json",
+                "type": "GET",
                 "dataType": "json"
             },
             "destroy": {
                 "url": "./ProductsSampleDestroy.json",
+                "type": "GET",
                 "dataType": "json"
             },
             "update": {
                 "url": "./ProductsSampleUpdate.json",
+                "type": "GET",
                 "dataType": "json"
             }
         }      
     },
     "editable":
-        {"mode": "popup"},
+        {"mode": "inline"},
     "filterable": true,
     "groupable": false,
     "height": 300,
@@ -52,8 +83,6 @@
     "selectable": "row",
     "sortable": true,
     "toolbar": [
-        {"name": "create", "text": "Create New Product"},
-        {"name": "save", "text": "Save Pending Changes"},
-        {"name": "cancel", "text": "Cancel / Rollback Changes" }
+        {"name": "create", "text": "Create New Product"}
     ]
 }
