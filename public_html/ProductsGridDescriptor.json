@@ -1,14 +1,44 @@
 {
     "autoBind": true,
-    "batch": false,
     "columnMenu": true,
     "columns": [
         {"field": "Part_Number", "title": "Item Number", "width": 120, "filterable": true}, 
         {"field": "Part_Name", "title": "Item Name", "filterable": false}, 
         {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
-        {"field": "Phase", "title": "Status", "width": 120, "filterable": true}
+        {"field": "Phase", "title": "Status", "width": 120, "filterable": true},
+        {"command": [
+            {"name": "edit", "text": {"edit": "Edit", "update": "Save", "cancel": "Cancel changes"}},
+            {"name": "destroy", "text": "Delete"}],
+            "title": "&nbsp;",
+            "width": 170
+        }
     ],
     "dataSource" : {
+        "batch": true,
+        "pageSize": 15,
+        "schema": {
+            "model": {
+                "id": "uid"
+            }
+        },
+        "transport": {
+            "read": {
+                "url": "./ProductSummary.json",
+                "dataType": "json"
+            },
+            "create": {
+                "url": "./ProductsSampleCreate.json",
+                "dataType": "json"
+            },
+            "destroy": {
+                "url": "./ProductsSampleDestroy.json",
+                "dataType": "json"
+            },
+            "update": {
+                "url": "./ProductsSampleUpdate.json",
+                "dataType": "json"
+            }
+        }      
     },
     "editable":
         {"mode": "popup"},
@@ -16,12 +46,14 @@
     "groupable": false,
     "height": 300,
     "pageable": 
-        {"refresh": true, "pageSizes": [5, 10, 15, 20, 25], "input": false},
+        {"refresh": true, "pageSizes": [5, 10, 20, 100], "input": true},
     "resizable": true,
     "scrollable": true,
-    "selectable": "multiple, row",
+    "selectable": "row",
     "sortable": true,
     "toolbar": [
-        "create"
+        {"name": "create", "text": "Create New Product"},
+        {"name": "save", "text": "Save Pending Changes"},
+        {"name": "cancel", "text": "Cancel / Rollback Changes" }
     ]
 }

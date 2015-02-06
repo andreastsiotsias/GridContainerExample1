@@ -23,7 +23,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <!-- Latest compiled and minified KENDO UI CSS -->
         <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.1.319/styles/kendo.common.min.css" />
-        <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.1.319/styles/kendo.bootstrap.min.css" />
+        <link rel="stylesheet" href="http://cdn.kendostatic.com/2013.1.319/styles/kendo.default.min.css" />
         <!-- Local CSS -->
         <link rel="stylesheet" href="./css/DeclarativeGridContainer.css"/>
     </head>
@@ -33,7 +33,7 @@ and open the template in the editor.
             <!-- Begin page content -->
             <div id="grid-container" style="background-color: transparent;">
                 <!-- All my content goes here! -->
-                <div id="grid" ng-controller="DeclarativeGridController"></div>
+                <div id="grid" ng-controller="DeclarativeGridController" data-descriptor="./ProductsGridDescriptor.json"></div>
             </div>
             <!-- Put in a hidden loading page -->
             <div id="loading">

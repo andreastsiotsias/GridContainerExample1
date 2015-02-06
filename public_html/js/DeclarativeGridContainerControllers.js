@@ -6,31 +6,36 @@
 angular.module("declarativeGridContainer.tsiotsias.uk")
     .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
         function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
-            var httpDataPromise = getHTTPDataService.getData("ProductsGridDescriptor.json");
+            console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
             $('#loading').show();
+            //
+            var httpDataPromise = getHTTPDataService.getData($attrs.descriptor);
             // Now wait until the promise is fulfilled
             httpDataPromise.then(function(result) {  // this is only run after $http completes
             var httpData = result;
             initialiseGrid(httpData);
             // hide the spinning wheel ....
             $('#loading').hide();
+            //
         });
-        function initialiseGrid(gridData){
+        function initialiseGrid(gridDescriptor){
             var gridElement = $element[0];
             var gridContainerElement = $(gridElement).parent()[0];
-            // now bypass the Height attribute passed in via th definition
+            // now bypass the Height attribute passed in via the definition
             var gridContainerHeight = $(gridElement).parent().height();
-            gridData.height = gridContainerHeight;
-            $(gridElement).kendoGrid(gridData);
+            gridDescriptor.height = gridContainerHeight;
+            $(gridElement).kendoGrid(gridDescriptor);
             var grid = $(gridElement).data("kendoGrid");
-            console.log("Grid is : "+grid);
             // deal with pager change events
             var gridPager = grid.pager;
             gridPager.bind("change", pager_change);
             // deal with data source change events
             var gridDataSource = grid.dataSource;
             gridDataSource.bind("change", dataSource_change);
+            // deal with grid save events
+            grid.bind("save", grid_save);
+            //
             var dataArea = $(gridElement).find(".k-grid-content");
             var gridDecorationsHeight = gridContainerElement.clientHeight - dataArea.height();
             console.log("<-- Initialisation --->");
@@ -59,9 +64,21 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             }
             //
             // manage the change in data being displayed
-            function dataSource_change() {
-                console.log("dataSource change event");
-                resizeGridToFitContainer();
+            function dataSource_change(evt) {
+                console.log("dataSource change event : "+evt.action);
+                if (evt.action == 'add' || evt.action == 'remove') {
+                    resizeGridToFitContainer();
+                }
+                else {
+                    console.log("No need to resize grid");
+                }
+            }
+            //
+            // manage the save from an individual row
+            function grid_save(evt) {
+                console.log("row save event");
+                //evt.preventDefault();
+                //resizeGridToFitContainer();
             }
         }  
     }]);
