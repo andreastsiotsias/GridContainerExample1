@@ -1,0 +1,27 @@
+{
+    "autoBind": true,
+    "batch": false,
+    "columnMenu": true,
+    "columns": [
+        {"field": "Part_Number", "title": "Item Number", "width": 120, "filterable": true}, 
+        {"field": "Part_Name", "title": "Item Name", "filterable": false}, 
+        {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
+        {"field": "Phase", "title": "Status", "width": 120, "filterable": true}
+    ],
+    "dataSource" : {
+    },
+    "editable":
+        {"mode": "popup"},
+    "filterable": true,
+    "groupable": false,
+    "height": 300,
+    "pageable": 
+        {"refresh": true, "pageSizes": [5, 10, 15, 20, 25], "input": false},
+    "resizable": true,
+    "scrollable": true,
+    "selectable": "multiple, row",
+    "sortable": true,
+    "toolbar": [
+        "create"
+    ]
+}
