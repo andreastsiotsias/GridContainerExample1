@@ -36,6 +36,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var selectedRowModel;
             var selectedRowData;
             //
+            console.log("datasource schema fields : "+
+                    //Object.getOwnPropertyNames(gridDataSource.options.schema.model.fields));
+                    Object.keys(gridDataSource.options.schema.model.fields));
             // Now start dealing with events ..... there are several of them
             // deal with pager change events
             gridPager.bind("change", pager_change);
