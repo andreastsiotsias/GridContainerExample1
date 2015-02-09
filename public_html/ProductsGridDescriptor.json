@@ -24,7 +24,10 @@
                         "type": "String",
                         "editable": true,
                         "nullable": false,
-                        "validation": {"required": true}
+                        "validation": {"required": true},
+                        "helpValues": "./partNumberGenerator.json",
+                        "defaultValue": "20000-099",
+                        "checkValues": "./partNumberChecker.json"
                    },
                     "Part_Name": {
                         "type": "String",
