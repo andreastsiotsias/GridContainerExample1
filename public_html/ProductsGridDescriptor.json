@@ -7,7 +7,6 @@
         {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
         {"field": "Phase", "title": "Status", "width": 120, "filterable": true},
         {"command": [
-            {"name": "edit", "text": {"edit": "Edit", "update": "Save", "cancel": "Cancel changes"}},
             {"name": "destroy", "text": "Delete"}],
             "title": "&nbsp;",
             "width": 170
@@ -85,7 +84,5 @@
     "scrollable": true,
     "selectable": "row",
     "sortable": true,
-    "toolbar": [
-        {"name": "create", "text": "Create New Product"}
-    ]
+    "toolbar": false
 }

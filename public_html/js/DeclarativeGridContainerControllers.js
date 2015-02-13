@@ -38,7 +38,10 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             //
             console.log("datasource schema fields : "+
                     //Object.getOwnPropertyNames(gridDataSource.options.schema.model.fields));
-                    Object.keys(gridDataSource.options.schema.model.fields));
+                Object.keys(gridDataSource.options.schema.model.fields));
+            //
+            // add a 'create new row' button on the pager area
+            addButtonToPager();
             // Now start dealing with events ..... there are several of them
             // deal with pager change events
             gridPager.bind("change", pager_change);
@@ -100,6 +103,26 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 selectedRowData = JSON.stringify(selectedRowModel.toJSON());
                 //console.log("Selected row : "+JSON.stringify(grid.dataItem(this.select()).toJSON()));
                 console.log("Selected row with Data : "+selectedRowData);
+            }
+            //
+            // add a button to the pager area
+            function addButtonToPager () {
+                var createButton = document.createElement('Button');
+                createButton.textContent = 'Create New';
+                //createButton.className = 'btn btn-primary btn-xs';
+                //createButton.className = 'k-primary';
+                createButton.style.marginLeft = "100px";
+                gridPager.element[0].appendChild(createButton);
+                createButton.addEventListener("click", createNewRow);
+                //var createButtonGlyph = document.createElement('span');
+                //createButtonGlyph.className = 'glyphicon glyphicon-plus-sign';
+                //createButton.appendChild(createButtonGlyph);
+                //console.log("GridPager : "+gridPager.element[0]);
+            }
+            //
+            // create new data row function
+            function createNewRow () {
+                console.log("Pressed Create New Row");
             }
         }  
     }]);
