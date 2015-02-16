@@ -39,6 +39,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var retrieveButton;
             var updateButton;
             var deleteButton;
+            var dataEntryForm;
             //
             console.log("datasource schema fields : "+
                     //Object.getOwnPropertyNames(gridDataSource.options.schema.model.fields));
@@ -146,7 +147,16 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // create new data row function
             function createNewData () {
                 console.log("Pressed Create New");
-                alert("I am a new button and I haven't been implemented yet ...");
+                //alert("I am a new button and I haven't been implemented yet ...");
+                if (!dataEntryForm) {
+                    console.log ("Data Entry form will be created");
+                    createDataEntryForm("Create new item");
+                }
+                else {
+                    console.log ("Data Entry form has already been created");
+                }
+                $(dataEntryForm).modal('show');
+                
             }
             //
             // retrieve data row function
@@ -158,7 +168,14 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // update data row function
             function updateData () {
                 console.log("Pressed Edit/Modify");
-                alert("I am a new button and I haven't been implemented yet ...");
+                if (!dataEntryForm) {
+                    console.log ("Data Entry form will be created");
+                    createDataEntryForm("Edit / Modify item");
+                }
+                else {
+                    console.log ("Data Entry form has already been created");
+                }
+                $(dataEntryForm).modal('show');
             }
             //
             // delete data row function
@@ -179,6 +196,74 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 retrieveButton.disabled = true;
                 updateButton.disabled = true;
                 deleteButton.disabled = true;
+            }
+            //
+            // create the modal data form for the create / update modal dialogue
+            function createDataEntryForm (title) {
+                dataEntryForm = document.createElement('div');
+                dataEntryForm.className = 'modal fade';
+                dataEntryForm.setAttribute("id", "dataEntryForm");
+                dataEntryForm.setAttribute("tabindex", "-1");
+                dataEntryForm.setAttribute("role", "dialog");
+                dataEntryForm.setAttribute("aria-labelledby", "dataEntryFormTitle");
+                dataEntryForm.setAttribute("aria-hidden", "true");
+                // add the actual modal dialogue container
+                var dataEntryFormContainer = document.createElement('div');
+                dataEntryFormContainer.className = 'modal-dialog modal-sm';
+                dataEntryForm.appendChild(dataEntryFormContainer);
+                // add the content container
+                var dataEntryFormContent = document.createElement('div');
+                dataEntryFormContent.className = 'modal-content';
+                dataEntryFormContainer.appendChild(dataEntryFormContent);
+                // add the header content
+                var dataEntryFormHeader = document.createElement('div');
+                dataEntryFormHeader.className = 'modal-header';
+                dataEntryFormContent.appendChild(dataEntryFormHeader);
+                // add the close/exit decoration (button with glyph only) to the dialogue header on top right corner
+                var dataEntryFormHeaderExit = document.createElement('button');
+                dataEntryFormHeaderExit.className = 'close';
+                dataEntryFormHeaderExit.setAttribute("type", "button");
+                dataEntryFormHeaderExit.setAttribute("data-dismiss", "modal");
+                dataEntryFormHeaderExit.setAttribute("aria-hidden", "true");
+                dataEntryFormHeader.appendChild(dataEntryFormHeaderExit);
+                // add the 'close window' glyph icon to the button
+                var dataEntryFormHeaderExitGlyph = document.createElement('span');
+                dataEntryFormHeaderExitGlyph.className = 'glyphicon glyphicon-remove-circle';
+                dataEntryFormHeaderExit.appendChild(dataEntryFormHeaderExitGlyph);
+                // add the heading label to the dialogue header
+                var dataEntryFormHeaderLabel = document.createElement('h5');
+                dataEntryFormHeaderLabel.className = 'modal-title';
+                dataEntryFormHeaderLabel.setAttribute("id", "locationSelectionTitle");
+                dataEntryFormHeaderLabel.textContent = title;
+                dataEntryFormHeader.appendChild(dataEntryFormHeaderLabel);
+                // add the body content
+                var dataEntryFormBody = document.createElement('div');
+                dataEntryFormBody.className = 'modal-body';
+                dataEntryFormContent.appendChild(dataEntryFormBody);
+                // add the data name/value pairs ......
+            //var locationSelectionOptions = document.createElement('select');
+            //locationSelectionOptions.className = 'form-control btn-warning';
+            //locationSelectionOptions.setAttribute("id", "locationSelectionOptions");
+            //locationSelectionDialogueBody.appendChild(locationSelectionOptions);
+                // add the footer content
+                var dataEntryFormFooter = document.createElement('div');
+                dataEntryFormFooter.className = 'modal-footer';
+                dataEntryFormContent.appendChild(dataEntryFormFooter);
+                // add the Go button to the footer
+                var dataEntryFormGoButton = document.createElement('button');
+                dataEntryFormGoButton.className = 'btn btn-primary btn-xs';
+                dataEntryFormGoButton.setAttribute("id", "dataEntryFormGoButton");
+                dataEntryFormGoButton.setAttribute("type", "button");
+                dataEntryFormFooter.appendChild(dataEntryFormGoButton);
+                // add a glyph to the Go button
+                var dataEntryFormGoButtonGlyph = document.createElement('span');
+                dataEntryFormGoButtonGlyph.className = 'glyphicon glyphicon-ok-sign';
+                dataEntryFormGoButton.appendChild(dataEntryFormGoButtonGlyph);
+            }
+            //
+            // destroy the modal data form
+            function destroyDataEntryForm () {
+                //TO-DO
             }
         }  
     }]);
