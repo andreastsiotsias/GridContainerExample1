@@ -7,9 +7,11 @@
         {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
         {"field": "Phase", "title": "Status", "width": 120, "filterable": true},
         {"command": [
-            {"name": "destroy", "text": "Delete"}],
+            {"name": "destroy", "text": "Delete"},
+            {"name": "edit", "text": "Edit/Modify"}
+            ], 
             "title": "&nbsp;",
-            "width": 170
+            "width": 205
         }
     ],
     "dataSource" : {
@@ -25,7 +27,7 @@
                         "nullable": false,
                         "validation": {"required": true},
                         "helpValues": "./partNumberGenerator.json",
-                        "defaultValue": "20000-099",
+                        "defaultValue": "xx-yyyy",
                         "checkValues": "./partNumberChecker.json"
                    },
                     "Part_Name": {
@@ -84,5 +86,5 @@
     "scrollable": true,
     "selectable": "row",
     "sortable": true,
-    "toolbar": false
+    "toolbar": ["create"]
 }

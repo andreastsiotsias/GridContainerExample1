@@ -35,13 +35,17 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var selectedRow;
             var selectedRowModel;
             var selectedRowData;
+            var createButton;
+            var retrieveButton;
+            var updateButton;
+            var deleteButton;
             //
             console.log("datasource schema fields : "+
                     //Object.getOwnPropertyNames(gridDataSource.options.schema.model.fields));
                 Object.keys(gridDataSource.options.schema.model.fields));
             //
-            // add a 'create new row' button on the pager area
-            addButtonToPager();
+            // add the CRUD buttons on the pager area
+            addCRUDButtonsToPager();
             // Now start dealing with events ..... there are several of them
             // deal with pager change events
             gridPager.bind("change", pager_change);
@@ -82,11 +86,13 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // manage the change in data being displayed
             function dataSource_change(evt) {
                 console.log("dataSource change event : "+evt.action);
-                if (evt.action == 'add' || evt.action == 'remove') {
+                if (evt.action === 'add' || evt.action === 'remove') {
                     resizeGridToFitContainer();
                 }
                 else {
                     console.log("No need to resize grid");
+                    console.log("But we will disable the CRUD buttons");
+                    disableCRUDButtons();
                 }
             }
             //
@@ -103,26 +109,76 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 selectedRowData = JSON.stringify(selectedRowModel.toJSON());
                 //console.log("Selected row : "+JSON.stringify(grid.dataItem(this.select()).toJSON()));
                 console.log("Selected row with Data : "+selectedRowData);
+                enableCRUDButtons();
             }
             //
             // add a button to the pager area
-            function addButtonToPager () {
-                var createButton = document.createElement('Button');
+            function addCRUDButtonsToPager () {
+                // create the buttons in sequence
+                // CREATE
+                createButton = document.createElement('Button');
                 createButton.textContent = 'Create New';
-                //createButton.className = 'btn btn-primary btn-xs';
-                //createButton.className = 'k-primary';
                 createButton.style.marginLeft = "100px";
                 gridPager.element[0].appendChild(createButton);
-                createButton.addEventListener("click", createNewRow);
-                //var createButtonGlyph = document.createElement('span');
-                //createButtonGlyph.className = 'glyphicon glyphicon-plus-sign';
-                //createButton.appendChild(createButtonGlyph);
-                //console.log("GridPager : "+gridPager.element[0]);
+                createButton.addEventListener("click", createNewData);
+                // RETRIEVE
+                retrieveButton = document.createElement('Button');
+                retrieveButton.textContent = 'Details';
+                retrieveButton.style.marginLeft = "5px";
+                gridPager.element[0].appendChild(retrieveButton);
+                retrieveButton.addEventListener("click", retrieveData);
+                // UPDATE
+                updateButton = document.createElement('Button');
+                updateButton.textContent = 'Edit/Modify';
+                updateButton.style.marginLeft = "5px";
+                gridPager.element[0].appendChild(updateButton);
+                updateButton.addEventListener("click", updateData);
+                // DELETE
+                deleteButton = document.createElement('Button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.style.marginLeft = "5px";
+                gridPager.element[0].appendChild(deleteButton);
+                deleteButton.addEventListener("click", deleteData);
+                // set CRUD default button state
+                disableCRUDButtons();
             }
             //
             // create new data row function
-            function createNewRow () {
-                console.log("Pressed Create New Row");
+            function createNewData () {
+                console.log("Pressed Create New");
+                alert("I am a new button and I haven't been implemented yet ...");
+            }
+            //
+            // retrieve data row function
+            function retrieveData () {
+                console.log("Pressed Details");
+                alert("I am a new button and I haven't been implemented yet ...");
+            }
+            //
+            // update data row function
+            function updateData () {
+                console.log("Pressed Edit/Modify");
+                alert("I am a new button and I haven't been implemented yet ...");
+            }
+            //
+            // delete data row function
+            function deleteData () {
+                console.log("Pressed Delete");
+                alert("I am a new button and I haven't been implemented yet ...");
+            }
+            //
+            // enable CRUD buttons
+            function enableCRUDButtons () {
+                retrieveButton.disabled = false;
+                updateButton.disabled = false;
+                deleteButton.disabled = false;
+            }
+            //
+            // disable CRUD Buttons
+            function disableCRUDButtons () {
+                retrieveButton.disabled = true;
+                updateButton.disabled = true;
+                deleteButton.disabled = true;
             }
         }  
     }]);
