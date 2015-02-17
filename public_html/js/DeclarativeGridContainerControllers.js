@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 angular.module("declarativeGridContainer.tsiotsias.uk")
-    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService', '$compile',
-        function($rootScope, $scope, $element, $attrs, getHTTPDataService, $compile) {
+    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
+        function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
             console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
             //$('#loading').show();
@@ -35,6 +35,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var selectedRow;
             var selectedRowModel;
             var selectedRowData;
+            var selectedRowID;
             var createButton;
             var retrieveButton;
             var updateButton;
@@ -87,11 +88,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // manage the change in data being displayed
             function dataSource_change(evt) {
                 console.log("dataSource change event : "+evt.action);
-                if (evt.action === 'add' || evt.action === 'remove') {
-                    resizeGridToFitContainer();
-                }
-                else {
-                    console.log("No need to resize grid");
+                resizeGridToFitContainer();
+                // check if the buttons need resetting ...
+                if (grid.select().length === 0) {
                     console.log("But we will disable the CRUD buttons");
                     disableCRUDButtons();
                 }
@@ -105,11 +104,12 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             //
             // manage the selection of a row in the grid
             function grid_selection(evt) {
-                selectedRow = this.select();
+                selectedRow = grid.select();
                 selectedRowModel = grid.dataItem(this.select());
                 selectedRowData = JSON.stringify(selectedRowModel.toJSON());
                 //console.log("Selected row : "+JSON.stringify(grid.dataItem(this.select()).toJSON()));
-                console.log("Selected row with Data : "+selectedRowData);
+                //console.log("Selected row with ID : "+selectedRowModel.id+" and Data : "+selectedRowData);
+                logObjectContents(selectedRow);
                 enableCRUDButtons();
             }
             //
@@ -285,6 +285,14 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // destroy the modal data form
             function destroyDataEntryForm () {
                 //TO-DO
+            }
+            //
+            // **** HELPER FUNCTION **** Print all keys/value pairs in Object
+            function logObjectContents (obj) {
+                var keys = Object.keys(obj);
+                for (var i = 0; i < keys.length; i++) {
+                    console.log("Object key : "+keys[i]+" value : "+obj[keys[i]]);
+                }
             }
         }  
     }]);
