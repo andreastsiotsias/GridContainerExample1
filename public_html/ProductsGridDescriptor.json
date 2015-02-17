@@ -3,7 +3,7 @@
     "columnMenu": true,
     "columns": [
         {"field": "Part_Number", "title": "Item Number", "width": 120, "filterable": true}, 
-        {"field": "Part_Name", "title": "Item Name", "filterable": false}, 
+        {"field": "Part_Name", "title": "Item Name", "filterable": true}, 
         {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
         {"field": "Phase", "title": "Status", "width": 120, "filterable": true},
         {"command": [
@@ -22,32 +22,27 @@
                 "id": "uid",            
                 "fields": {
                     "Part_Number": {
-                        "type": "String",
+                        "type": "string",
                         "editable": true,
                         "nullable": false,
-                        "validation": {"required": true},
-                        "helpValues": "./partNumberGenerator.json",
-                        "defaultValue": "xx-yyyy",
-                        "checkValues": "./partNumberChecker.json"
+                        "defaultValue": "xx-yyyy"
                    },
                     "Part_Name": {
-                        "type": "String",
+                        "type": "string",
                         "editable": true,
                         "nullable": true
                    },
                     "Revision": {
-                        "type": "String",
+                        "type": "string",
                         "editable": true,
                         "nullable": false,
-                        "defaultValue": "A",
-                        "validation": {"required": true}
+                        "defaultValue": "A"
                     },
                     "Phase": {
-                        "type": "String",
+                        "type": "string",
                         "editable": true,
                         "nullable": false,
-                        "defaultValue": "Unreleased",
-                        "validation": {"required": true}
+                        "defaultValue": "Unreleased"
                     }
                 }
             }
