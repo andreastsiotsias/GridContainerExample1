@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 angular.module("declarativeGridContainer.tsiotsias.uk")
-    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
-        function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
+    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService', '$compile',
+        function($rootScope, $scope, $element, $attrs, getHTTPDataService, $compile) {
             console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
             //$('#loading').show();
@@ -40,9 +40,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             var updateButton;
             var deleteButton;
             var dataEntryForm;
+            var setDataEntryFormTitle;
             //
             console.log("datasource schema fields : "+
-                    //Object.getOwnPropertyNames(gridDataSource.options.schema.model.fields));
                 Object.keys(gridDataSource.options.schema.model.fields));
             //
             // add the CRUD buttons on the pager area
@@ -148,15 +148,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             function createNewData () {
                 console.log("Pressed Create New");
                 //alert("I am a new button and I haven't been implemented yet ...");
-                if (!dataEntryForm) {
-                    console.log ("Data Entry form will be created");
-                    createDataEntryForm("Create new item");
-                }
-                else {
-                    console.log ("Data Entry form has already been created");
-                }
-                $(dataEntryForm).modal('show');
-                
+                showDataEntryForm("Create - Enter data below .....");
             }
             //
             // retrieve data row function
@@ -168,14 +160,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // update data row function
             function updateData () {
                 console.log("Pressed Edit/Modify");
-                if (!dataEntryForm) {
-                    console.log ("Data Entry form will be created");
-                    createDataEntryForm("Edit / Modify item");
-                }
-                else {
-                    console.log ("Data Entry form has already been created");
-                }
-                $(dataEntryForm).modal('show');
+                showDataEntryForm("Edit - Modify data below .....");
             }
             //
             // delete data row function
@@ -196,6 +181,24 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 retrieveButton.disabled = true;
                 updateButton.disabled = true;
                 deleteButton.disabled = true;
+            }
+            //
+            // make the data entry form visible
+            function showDataEntryForm (title) {
+                if (!dataEntryForm) {
+                    console.log ("Data Entry form will be created");
+                    createDataEntryForm("Create new item");
+                }
+                else {
+                    console.log ("Data Entry form has already been created");
+                }
+                setDataFormTitle(title);
+                $(dataEntryForm).modal('show');
+            }
+            //
+            // hide data entry form
+            function hideDataEntryForm () {
+                $(dataEntryForm).modal('hide');
             }
             //
             // create the modal data form for the create / update modal dialogue
@@ -239,8 +242,22 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 // add the body content
                 var dataEntryFormBody = document.createElement('div');
                 dataEntryFormBody.className = 'modal-body';
+                dataEntryFormBody.style.maxHeight = "100px";
+                dataEntryFormBody.style.overflowY="auto";
                 dataEntryFormContent.appendChild(dataEntryFormBody);
                 // add the data name/value pairs ......
+                var firstAttribute = document.createElement('p');
+                firstAttribute.textContent = "First item";
+                dataEntryFormBody.appendChild(firstAttribute);
+                var secondAttribute = document.createElement('p');
+                secondAttribute.textContent = "Second item";
+                dataEntryFormBody.appendChild(secondAttribute);
+                var thirdAttribute = document.createElement('p');
+                thirdAttribute.textContent = "Third item";
+                dataEntryFormBody.appendChild(thirdAttribute);
+                var fourthAttribute = document.createElement('p');
+                fourthAttribute.textContent = "Fourth item";
+                dataEntryFormBody.appendChild(fourthAttribute);
             //var locationSelectionOptions = document.createElement('select');
             //locationSelectionOptions.className = 'form-control btn-warning';
             //locationSelectionOptions.setAttribute("id", "locationSelectionOptions");
@@ -259,6 +276,10 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 var dataEntryFormGoButtonGlyph = document.createElement('span');
                 dataEntryFormGoButtonGlyph.className = 'glyphicon glyphicon-ok-sign';
                 dataEntryFormGoButton.appendChild(dataEntryFormGoButtonGlyph);
+                //
+                setDataFormTitle = function (title) {
+                    dataEntryFormHeaderLabel.textContent = title;
+                };
             }
             //
             // destroy the modal data form
