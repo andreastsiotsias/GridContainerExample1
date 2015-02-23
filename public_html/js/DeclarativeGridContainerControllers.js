@@ -1,11 +1,7 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 angular.module("declarativeGridContainer.tsiotsias.uk")
-    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService',
-        function($rootScope, $scope, $element, $attrs, getHTTPDataService) {
+    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService', 'utilityServices',
+        function($rootScope, $scope, $element, $attrs, getHTTPDataService, utilityServices) {
+            $scope.utilityServices = utilityServices;
             console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
             //$('#loading').show();
