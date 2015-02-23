@@ -206,6 +206,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryForm.setAttribute("role", "dialog");
                 dataEntryForm.setAttribute("aria-labelledby", "dataEntryFormTitle");
                 dataEntryForm.setAttribute("aria-hidden", "true");
+                // Make the popup (modal form) uncloseable until the right buttons are pressed
+                $(dataEntryForm).modal({backdrop: 'static', keyboard: false});
+                //
                 // add the actual modal dialogue container
                 var dataEntryFormContainer = document.createElement('div');
                 dataEntryFormContainer.className = 'modal-dialog modal-sm';
