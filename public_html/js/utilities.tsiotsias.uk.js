@@ -9,13 +9,18 @@ angular.module('utilities.tsiotsias.uk', [])
             getType: function(elem) {
                 return Object.prototype.toString.call(elem).slice(8, -1).toLowerCase();
             },
-            doSomething: function(inp) {   
-                //Do something here
-                console.log("Called doSomething function with argument : "+inp);
+            html2DOM: function(html) {
+                var el = document.createElement('div');
+                el.innerHTML = html;
+                return el;
             },
-            doSomethingElse: function(inp) {
-                //Do something else here
-                console.log("Called doSomethingElse function with argument : "+inp);
+            printObjectContents: function(obj) {
+                var keys = Object.keys(obj);
+                console.log("<------ Printing Object contents");
+                for (var i = 0; i < keys.length; i++) {
+                    console.log("Object key : "+keys[i]+" value : "+obj[keys[i]]);
+                }
+                console.log("------->");
             }
         };
     });

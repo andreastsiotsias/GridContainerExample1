@@ -105,7 +105,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 selectedRowData = JSON.stringify(selectedRowModel.toJSON());
                 //console.log("Selected row : "+JSON.stringify(grid.dataItem(this.select()).toJSON()));
                 //console.log("Selected row with ID : "+selectedRowModel.id+" and Data : "+selectedRowData);
-                logObjectContents(selectedRow);
+                utilityServices.printObjectContents(selectedRow);
                 enableCRUDButtons();
             }
             //
@@ -257,6 +257,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 var fourthAttribute = document.createElement('p');
                 fourthAttribute.textContent = "Fourth item";
                 dataEntryFormBody.appendChild(fourthAttribute);
+                //
+                dataEntryFormBody.appendChild(utilityServices.html2DOM('<p><a href="#">Link label 1</a></p><p><a href="#">Link label 2</a></p><button type="button" class="btn btn-warning">Warning</button>'));
+                //console.log(utilityServices.html2DOM('<button id="primaryTextButton" class="k-primary">Primary Button</button>'));
             //var locationSelectionOptions = document.createElement('select');
             //locationSelectionOptions.className = 'form-control btn-warning';
             //locationSelectionOptions.setAttribute("id", "locationSelectionOptions");
@@ -286,12 +289,9 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 //TO-DO
             }
             //
-            // **** HELPER FUNCTION **** Print all keys/value pairs in Object
-            function logObjectContents (obj) {
-                var keys = Object.keys(obj);
-                for (var i = 0; i < keys.length; i++) {
-                    console.log("Object key : "+keys[i]+" value : "+obj[keys[i]]);
-                }
+            // **** HELPER FUNCTION **** A sample callback to use on new buttons
+            function sampleButtonClicked () {
+                alert("Sample Button clicked");
             }
         }  
     }]);
