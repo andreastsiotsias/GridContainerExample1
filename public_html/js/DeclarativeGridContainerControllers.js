@@ -211,7 +211,8 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 //
                 // add the actual modal dialogue container
                 var dataEntryFormContainer = document.createElement('div');
-                dataEntryFormContainer.className = 'modal-dialog modal-lg';
+                //dataEntryFormContainer.className = 'modal-dialog modal-sm';
+                dataEntryFormContainer.className = 'modal-dialog';
                 dataEntryForm.appendChild(dataEntryFormContainer);
                 // add the content container
                 var dataEntryFormContent = document.createElement('div');
@@ -241,16 +242,16 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 // add the body content
                 var dataEntryFormBody = document.createElement('div');
                 dataEntryFormBody.className = 'modal-body';
-                dataEntryFormBody.style.maxHeight = "100px";
+                dataEntryFormBody.style.maxHeight = "400px";
                 dataEntryFormBody.style.overflowY="auto";
                 dataEntryFormContent.appendChild(dataEntryFormBody);
                 // now add some of the attributes/input field pairs in a bootstrap form
                 dataEntryFormBody.appendChild(utilityServices.html2DOM(
                         '<form class="form-horizontal" role="form">'+
                         '<div class="form-group">'+
-                        '<label class="control-label col-sm-2" for="PartNumber">Item Number : </label>'+
-                        '<div class="col-sm-10">'+
-                        '<input type="email" class="form-control" id="PartNumber" placeholder="Enter item number">'+
+                        '<label class="control-label col-sm-3" for="PartNumber">Item Number:</label>'+
+                        '<div class="col-sm-3">'+
+                        '<input type="text" class="form-control" id="PartNumber">'+
                         '</div>'+
                         '</div>'
                     )
@@ -258,9 +259,29 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryFormBody.appendChild(utilityServices.html2DOM(
                         '<form class="form-horizontal" role="form">'+
                         '<div class="form-group">'+
-                        '<label class="control-label col-sm-2" for="PartName">Item Name : </label>'+
-                        '<div class="col-sm-10">'+
-                        '<input type="email" class="form-control" id="PartName" placeholder="Enter item name or short description">'+
+                        '<label class="control-label col-sm-3" for="PartName">Item Name:</label>'+
+                        '<div class="col-sm-6">'+
+                        '<input type="text" class="form-control" id="PartName" placeholder="Enter item name or short description">'+
+                        '</div>'+
+                        '</div>'
+                    )
+                );
+                dataEntryFormBody.appendChild(utilityServices.html2DOM(
+                        '<form class="form-horizontal" role="form">'+
+                        '<div class="form-group">'+
+                        '<label class="control-label col-sm-3" for="Version">Version:</label>'+
+                        '<div class="col-sm-2">'+
+                        '<input type="text" class="form-control" id="Version" value="A">'+
+                        '</div>'+
+                        '</div>'
+                    )
+                );
+                dataEntryFormBody.appendChild(utilityServices.html2DOM(
+                        '<form class="form-horizontal" role="form">'+
+                        '<div class="form-group">'+
+                        '<label class="control-label col-sm-3" for="Status">Status:</label>'+
+                        '<div class="col-sm-3">'+
+                        '<input type="text" class="form-control" id="Status" value="Unreleased">'+
                         '</div>'+
                         '</div>'
                     )
@@ -280,6 +301,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryFormGoButton.className = 'btn btn-primary btn-xs';
                 dataEntryFormGoButton.setAttribute("id", "dataEntryFormGoButton");
                 dataEntryFormGoButton.setAttribute("type", "button");
+                dataEntryFormGoButton.textContent = 'Submit  ';
                 dataEntryFormFooter.appendChild(dataEntryFormGoButton);
                 // add a glyph to the Go button
                 var dataEntryFormGoButtonGlyph = document.createElement('span');
