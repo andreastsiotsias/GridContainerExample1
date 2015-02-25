@@ -211,7 +211,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 //
                 // add the actual modal dialogue container
                 var dataEntryFormContainer = document.createElement('div');
-                dataEntryFormContainer.className = 'modal-dialog modal-sm';
+                dataEntryFormContainer.className = 'modal-dialog modal-lg';
                 dataEntryForm.appendChild(dataEntryFormContainer);
                 // add the content container
                 var dataEntryFormContent = document.createElement('div');
@@ -244,21 +244,28 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryFormBody.style.maxHeight = "100px";
                 dataEntryFormBody.style.overflowY="auto";
                 dataEntryFormContent.appendChild(dataEntryFormBody);
-                // add the data name/value pairs ......
-                var firstAttribute = document.createElement('p');
-                firstAttribute.textContent = "First item";
-                dataEntryFormBody.appendChild(firstAttribute);
-                var secondAttribute = document.createElement('p');
-                secondAttribute.textContent = "Second item";
-                dataEntryFormBody.appendChild(secondAttribute);
-                var thirdAttribute = document.createElement('p');
-                thirdAttribute.textContent = "Third item";
-                dataEntryFormBody.appendChild(thirdAttribute);
-                var fourthAttribute = document.createElement('p');
-                fourthAttribute.textContent = "Fourth item";
-                dataEntryFormBody.appendChild(fourthAttribute);
-                //
-                dataEntryFormBody.appendChild(utilityServices.html2DOM('<p><a href="#">Link label 1</a></p><p><a href="#">Link label 2</a></p><button type="button" class="btn btn-warning">Warning</button>'));
+                // now add some of the attributes/input field pairs in a bootstrap form
+                dataEntryFormBody.appendChild(utilityServices.html2DOM(
+                        '<form class="form-horizontal" role="form">'+
+                        '<div class="form-group">'+
+                        '<label class="control-label col-sm-2" for="PartNumber">Item Number : </label>'+
+                        '<div class="col-sm-10">'+
+                        '<input type="email" class="form-control" id="PartNumber" placeholder="Enter item number">'+
+                        '</div>'+
+                        '</div>'
+                    )
+                );
+                dataEntryFormBody.appendChild(utilityServices.html2DOM(
+                        '<form class="form-horizontal" role="form">'+
+                        '<div class="form-group">'+
+                        '<label class="control-label col-sm-2" for="PartName">Item Name : </label>'+
+                        '<div class="col-sm-10">'+
+                        '<input type="email" class="form-control" id="PartName" placeholder="Enter item name or short description">'+
+                        '</div>'+
+                        '</div>'
+                    )
+                );
+                //dataEntryFormBody.appendChild(utilityServices.html2DOM('<p><a href="#">Link label 1</a></p><p><a href="#">Link label 2</a></p><button type="button" class="btn btn-warning" onClick="alert(&quot;Sample Warning button was clicked&quot;)">Warning</button>'));
                 //console.log(utilityServices.html2DOM('<button id="primaryTextButton" class="k-primary">Primary Button</button>'));
             //var locationSelectionOptions = document.createElement('select');
             //locationSelectionOptions.className = 'form-control btn-warning';
@@ -292,7 +299,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             // **** HELPER FUNCTION **** A sample callback to use on new buttons
             function sampleButtonClicked () {
                 alert("Sample Button clicked");
-            }
+            };
         }  
     }]);
 
