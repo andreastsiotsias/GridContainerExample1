@@ -2,15 +2,15 @@
     "autoBind": true,
     "columnMenu": true,
     "columns": [
-        {"field": "Part_Number", "title": "Item Number", "width": 120, "filterable": true}, 
+        {"field": "Part_Number", "title": "Item Number", "width": 140, "filterable": true}, 
         {"field": "Part_Name", "title": "Item Name", "filterable": true}, 
-        {"field": "Revision", "title": "Version", "width": 80, "filterable": true},  
-        {"field": "Phase", "title": "Status", "width": 120, "filterable": true},
+        {"field": "Revision", "title": "Version", "width": 100, "filterable": true},  
+        {"field": "Phase", "title": "Status", "width": 140, "filterable": true},
         {"command": [
             {"name": "destroy", "text": "Delete"},
             {"name": "edit", "text": "Edit/Modify"}
             ], 
-            "title": "&nbsp;",
+            "title": "Operations",
             "width": 205
         }
     ],

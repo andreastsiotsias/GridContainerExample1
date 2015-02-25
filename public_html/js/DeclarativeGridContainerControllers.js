@@ -114,19 +114,19 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 // create the buttons in sequence
                 // CREATE
                 createButton = document.createElement('Button');
-                createButton.textContent = 'Create New';
+                createButton.textContent = 'Create';
                 createButton.style.marginLeft = "100px";
                 gridPager.element[0].appendChild(createButton);
                 createButton.addEventListener("click", createNewData);
                 // RETRIEVE
                 retrieveButton = document.createElement('Button');
-                retrieveButton.textContent = 'Details';
+                retrieveButton.textContent = 'Retrieve Details';
                 retrieveButton.style.marginLeft = "5px";
                 gridPager.element[0].appendChild(retrieveButton);
                 retrieveButton.addEventListener("click", retrieveData);
                 // UPDATE
                 updateButton = document.createElement('Button');
-                updateButton.textContent = 'Edit/Modify';
+                updateButton.textContent = 'Update';
                 updateButton.style.marginLeft = "5px";
                 gridPager.element[0].appendChild(updateButton);
                 updateButton.addEventListener("click", updateData);
@@ -142,20 +142,20 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
             //
             // create new data row function
             function createNewData () {
-                console.log("Pressed Create New");
+                console.log("Pressed Create");
                 //alert("I am a new button and I haven't been implemented yet ...");
                 showDataEntryForm("Create - Enter data below .....");
             }
             //
             // retrieve data row function
             function retrieveData () {
-                console.log("Pressed Details");
+                console.log("Pressed Retrieve Details");
                 alert("I am a new button and I haven't been implemented yet ...");
             }
             //
             // update data row function
             function updateData () {
-                console.log("Pressed Edit/Modify");
+                console.log("Pressed Update");
                 showDataEntryForm("Edit - Modify data below .....");
             }
             //
@@ -221,11 +221,13 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 // add the header content
                 var dataEntryFormHeader = document.createElement('div');
                 dataEntryFormHeader.className = 'modal-header';
+                dataEntryFormHeader.setAttribute("style", "background-color: #f8f8ff;");
                 dataEntryFormContent.appendChild(dataEntryFormHeader);
                 // add the close/exit decoration (button with glyph only) to the dialogue header on top right corner
                 var dataEntryFormHeaderExit = document.createElement('button');
                 dataEntryFormHeaderExit.className = 'close';
                 dataEntryFormHeaderExit.setAttribute("type", "button");
+                dataEntryFormHeaderExit.textContent = "";
                 dataEntryFormHeaderExit.setAttribute("data-dismiss", "modal");
                 dataEntryFormHeaderExit.setAttribute("aria-hidden", "true");
                 dataEntryFormHeader.appendChild(dataEntryFormHeaderExit);
@@ -234,7 +236,7 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryFormHeaderExitGlyph.className = 'glyphicon glyphicon-remove-circle';
                 dataEntryFormHeaderExit.appendChild(dataEntryFormHeaderExitGlyph);
                 // add the heading label to the dialogue header
-                var dataEntryFormHeaderLabel = document.createElement('h5');
+                var dataEntryFormHeaderLabel = document.createElement('h3');
                 dataEntryFormHeaderLabel.className = 'modal-title';
                 dataEntryFormHeaderLabel.setAttribute("id", "locationSelectionTitle");
                 dataEntryFormHeaderLabel.textContent = title;
@@ -247,70 +249,60 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                 dataEntryFormContent.appendChild(dataEntryFormBody);
                 // now add some of the attributes/input field pairs in a bootstrap form
                 dataEntryFormBody.appendChild(utilityServices.html2DOM(
-                        '<form class="form-horizontal" role="form">'+
-                        '<div class="form-group">'+
-                        '<label class="control-label col-sm-3" for="PartNumber">Item Number:</label>'+
-                        '<div class="col-sm-3">'+
-                        '<input type="text" class="form-control" id="PartNumber">'+
-                        '</div>'+
-                        '</div>'
+                    '<form class="form-horizontal" role="form">'+
+                    '<div class="form-group">'+
+                    '<label class="control-label col-sm-3" for="Part_Number">Item Number:</label>'+
+                    '<div class="col-sm-3">'+
+                    '<input type="text" class="form-control" id="Part_Number">'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="form-group">'+
+                    '<label class="control-label col-sm-3" for="Part_Name">Item Name:</label>'+
+                    '<div class="col-sm-6">'+
+                    '<input type="text" class="form-control" id="Part_Name" placeholder="Enter item name or short description">'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="form-group">'+
+                    '<label class="control-label col-sm-3" for="Revision">Version:</label>'+
+                    '<div class="col-sm-2">'+
+                    '<input type="text" class="form-control" id="Revision" value="A">'+
+                    '</div>'+
+                    '</div>'+
+                    '<div class="form-group">'+
+                    '<label class="control-label col-sm-3" for="Phase">Status:</label>'+
+                    '<div class="col-sm-3">'+
+                    '<input type="text" class="form-control" id="Phase" value="Unreleased">'+
+                    '</div>'+
+                    '</div>'+
+                    '</form>'
                     )
                 );
-                dataEntryFormBody.appendChild(utilityServices.html2DOM(
-                        '<form class="form-horizontal" role="form">'+
-                        '<div class="form-group">'+
-                        '<label class="control-label col-sm-3" for="PartName">Item Name:</label>'+
-                        '<div class="col-sm-6">'+
-                        '<input type="text" class="form-control" id="PartName" placeholder="Enter item name or short description">'+
-                        '</div>'+
-                        '</div>'
-                    )
-                );
-                dataEntryFormBody.appendChild(utilityServices.html2DOM(
-                        '<form class="form-horizontal" role="form">'+
-                        '<div class="form-group">'+
-                        '<label class="control-label col-sm-3" for="Version">Version:</label>'+
-                        '<div class="col-sm-2">'+
-                        '<input type="text" class="form-control" id="Version" value="A">'+
-                        '</div>'+
-                        '</div>'
-                    )
-                );
-                dataEntryFormBody.appendChild(utilityServices.html2DOM(
-                        '<form class="form-horizontal" role="form">'+
-                        '<div class="form-group">'+
-                        '<label class="control-label col-sm-3" for="Status">Status:</label>'+
-                        '<div class="col-sm-3">'+
-                        '<input type="text" class="form-control" id="Status" value="Unreleased">'+
-                        '</div>'+
-                        '</div>'
-                    )
-                );
-                //dataEntryFormBody.appendChild(utilityServices.html2DOM('<p><a href="#">Link label 1</a></p><p><a href="#">Link label 2</a></p><button type="button" class="btn btn-warning" onClick="alert(&quot;Sample Warning button was clicked&quot;)">Warning</button>'));
-                //console.log(utilityServices.html2DOM('<button id="primaryTextButton" class="k-primary">Primary Button</button>'));
-            //var locationSelectionOptions = document.createElement('select');
-            //locationSelectionOptions.className = 'form-control btn-warning';
-            //locationSelectionOptions.setAttribute("id", "locationSelectionOptions");
-            //locationSelectionDialogueBody.appendChild(locationSelectionOptions);
                 // add the footer content
                 var dataEntryFormFooter = document.createElement('div');
                 dataEntryFormFooter.className = 'modal-footer';
+                dataEntryFormFooter.setAttribute("style", "background-color: #f8f8ff;");
                 dataEntryFormContent.appendChild(dataEntryFormFooter);
                 // add the Go button to the footer
                 var dataEntryFormGoButton = document.createElement('button');
-                dataEntryFormGoButton.className = 'btn btn-primary btn-xs';
+                dataEntryFormGoButton.className = 'btn btn-primary';
                 dataEntryFormGoButton.setAttribute("id", "dataEntryFormGoButton");
                 dataEntryFormGoButton.setAttribute("type", "button");
-                dataEntryFormGoButton.textContent = 'Submit  ';
+                dataEntryFormGoButton.textContent = 'Submit Changes  ';
+                dataEntryFormGoButton.addEventListener("click", dataEntryFormSubmit);
                 dataEntryFormFooter.appendChild(dataEntryFormGoButton);
                 // add a glyph to the Go button
                 var dataEntryFormGoButtonGlyph = document.createElement('span');
                 dataEntryFormGoButtonGlyph.className = 'glyphicon glyphicon-ok-sign';
                 dataEntryFormGoButton.appendChild(dataEntryFormGoButtonGlyph);
-                //
+                // set the context/title according to usage
                 setDataFormTitle = function (title) {
                     dataEntryFormHeaderLabel.textContent = title;
                 };
+                // callback for modal form submission
+                function dataEntryFormSubmit () {
+                    //alert("Form submitted");
+                    hideDataEntryForm ();
+                }
             }
             //
             // destroy the modal data form
