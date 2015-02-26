@@ -1,6 +1,6 @@
 angular.module("declarativeGridContainer.tsiotsias.uk")
-    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', 'getHTTPDataService', 'utilityServices',
-        function($rootScope, $scope, $element, $attrs, getHTTPDataService, utilityServices) {
+    .controller("DeclarativeGridController", ['$rootScope','$scope', '$element', '$attrs', '$compile', 'getHTTPDataService', 'utilityServices',
+        function($rootScope, $scope, $element, $attrs, $compile, getHTTPDataService, utilityServices) {
             $scope.utilityServices = utilityServices;
             console.log("Grid Descriptor URL : "+$attrs.descriptor);
             // show the spinning wheel ....
@@ -277,6 +277,11 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                     '</form>'
                     )
                 );
+                // now play with some angular directives
+                var testElement = angular.element('<div id="123456789"><p>This is a dynamically added element</p></div>');
+                $(dataEntryFormBody).append(testElement);
+                $compile(testElement)($scope);
+                // end play with angular directives .....
                 // add the footer content
                 var dataEntryFormFooter = document.createElement('div');
                 dataEntryFormFooter.className = 'modal-footer';
