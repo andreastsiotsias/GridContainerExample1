@@ -278,9 +278,19 @@ angular.module("declarativeGridContainer.tsiotsias.uk")
                     )
                 );
                 // now play with some angular directives
-                var testElement = angular.element('<div id="123456789"><p>This is a dynamically added element</p></div>');
-                $(dataEntryFormBody).append(testElement);
-                $compile(testElement)($scope);
+                $scope.$apply (function () {
+                    var testElement = angular.element(
+                        '<div id="123456789"><p>This is a dynamically added element with a calculation {{5+5}}</p></div>');
+                    var compiledElement = $compile(testElement);
+                    $(dataEntryFormBody).append(testElement);
+                    compiledElement($scope);
+                    });
+                //var testElement = angular.element(
+                //        '<div id="123456789"><p>This is a dynamically added element with a calculation {{5+5}}</p></div>');
+                //var compiledElement = $compile(testElement);
+                //$(dataEntryFormBody).append(testElement);
+                //compiledElement($scope);
+                //$scope.$apply(compiledElement);
                 // end play with angular directives .....
                 // add the footer content
                 var dataEntryFormFooter = document.createElement('div');
